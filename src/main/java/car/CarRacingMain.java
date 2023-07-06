@@ -1,7 +1,8 @@
-import car.CarRacingGame;
+package car;
+
 import java.util.Scanner;
 
-public class Main {
+public class CarRacingMain {
 
     private static Scanner scanner = new Scanner(System.in);
 
