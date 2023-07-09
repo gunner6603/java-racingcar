@@ -1,8 +1,9 @@
 package car.view;
 
-import car.domain.CarRacingGame;
 import car.domain.CarFormatter;
+import car.domain.CarRacingGame;
 import car.domain.Name;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,8 +14,8 @@ public class OutputView {
     private static final String FORMAT_END = "\n";
     private static CarFormatter formatter = new DefaultCarFormatter();
 
-    public static void printWinners(final CarRacingGame game) {
-        System.out.println(joinNames(game.resolveWinnerNames()) + "가 최종 우승했습니다.");
+    public static void printWinners(final List<Name> names) {
+        System.out.println(joinNames(names) + "가 최종 우승했습니다.");
     }
 
     public static void startPrintingResult() {
@@ -31,7 +32,7 @@ public class OutputView {
 
     private static String joinNames(final List<Name> names) {
         return names.stream()
-            .map(Name::getValue)
-            .collect(Collectors.joining(NAMES_JOIN_DELIMITER));
+                .map(Name::getValue)
+                .collect(Collectors.joining(NAMES_JOIN_DELIMITER));
     }
 }

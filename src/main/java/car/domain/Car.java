@@ -1,8 +1,11 @@
 package car.domain;
 
+import car.domain.movablestrategy.MovableStrategy;
+
+import java.util.List;
+
 public class Car {
 
-    private static final int MOVE_THRESHOLD = 4;
     private static final int MOVE_STEP = 1;
 
     private int position;
@@ -17,8 +20,8 @@ public class Car {
         this.name = new Name(name);
     }
 
-    public void move(final int value) {
-        if (value >= MOVE_THRESHOLD) {
+    public void move(final MovableStrategy movableStrategy) {
+        if (movableStrategy.isMovable()) {
             position += MOVE_STEP;
         }
     }
@@ -31,7 +34,18 @@ public class Car {
         return position;
     }
 
+    public String format(final CarFormatter carFormatter) {
+        return carFormatter.format(this);
+    }
+
     public boolean positionIsEqualTo(final int otherPosition) {
         return this.position == otherPosition;
+    }
+
+    public static int calculateMaxPosition(final List<Car> cars) {
+        return cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElseThrow(() -> new IllegalArgumentException("자동차 리스트는 비어 있을 수 없습니다."));
     }
 }
